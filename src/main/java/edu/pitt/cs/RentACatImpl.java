@@ -18,8 +18,22 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public boolean returnCat(int id) {
-		// TODO
-		return false;
+
+		if(!catExists(id)){
+			return false;
+		}
+
+		if( catAvailable(id) ){
+			return false;
+		} 
+		else{
+			
+			Cat cat = getCat(id); 
+			
+			cat.returnCat();
+			
+			return true;
+		}
 	}
 
 	/**
@@ -33,8 +47,22 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public boolean rentCat(int id) {
-		// TODO
-		return false;
+
+		if(!catExists(id)){
+			return false;
+		}
+
+		if( !catAvailable(id) ){
+			return false;
+		} 
+		else{
+
+			Cat cat = getCat(id); 
+			
+			cat.rentCat();
+			
+			return true;
+		}
 	}
 
 	/**
@@ -48,8 +76,28 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public String listCats() {
-		// TODO
-		return "WRITE CODE FOR THIS";
+
+		String output = "";
+
+		// Check if list is empty/null. If either true, return empty string.
+		if (cats == null || cats.size() == 0) {
+			return output;
+		}
+
+		// Iterate through cats. 
+		for(Cat c : cats){
+
+			// For each cat, check if it is rented.
+
+			// If not rented, then add their 'toString' to the output string.
+
+			if(!c.getRented()){
+				output += c.toString() + "\n"; // Add a \n for formatting specified in requirements.
+			}
+		}
+
+		// Return the compiled string.
+		return output;
 	}
 
 	/**
@@ -62,7 +110,21 @@ public class RentACatImpl implements RentACat {
 	 */
 
 	public boolean catExists(int id) {
-		// TODO
+
+		// Check if list is empty/null. If either true, return false.
+		if( cats==null || cats.size() == 0 ){
+			return false;
+		}
+
+		// Get cat of ID 'id'
+		Cat cat = getCat(id);
+		
+		// If getCat(id) does NOT return null, that means the cat exists, and we return true.
+		if(cat != null){
+			return true;
+		}
+		
+		// Otherwise return false.
 		return false;
 	}
 
